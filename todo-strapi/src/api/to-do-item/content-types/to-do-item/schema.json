@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "to_do_items",
+  "info": {
+    "singularName": "to-do-item",
+    "pluralName": "to-do-items",
+    "displayName": "ToDoItem"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Checked": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "Title": {
+      "type": "string",
+      "required": true
+    }
+  }
+}
