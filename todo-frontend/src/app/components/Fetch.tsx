@@ -1,5 +1,8 @@
 "use client";
+import { RootState } from "@/redux/store";
+import { setTodos } from "@/redux/todoSlice";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 type Todo = {
   id: number;
@@ -9,6 +12,8 @@ type Todo = {
 };
 
 export default function FetchTodoComponent() {
+  const dispatch = useDispatch();
+  const todos = useSelector((state: RootState) => state.todos.todos);
   const [data, setData] = useState<Todo[]>([]);
 
   const fetchDataApi = async () => {
@@ -28,7 +33,8 @@ export default function FetchTodoComponent() {
       }
 
       const responseData = await response.json();
-      setData(responseData.data);
+      dispatch(setTodos(responseData.data));
+      //   setData(responseData.data);
       console.log(responseData);
     } catch (error) {
       console.error("Error fetching data: ", error);
@@ -77,6 +83,7 @@ export default function FetchTodoComponent() {
     console.log("Delete ID:", id);
   };
   const handleChange = async (id: string) => {
+    const todoFind = todos.find((todo) => todo.documentId === id);
     setData((prevTodos) =>
       prevTodos.map((todo) => {
         if (todo.documentId === id) {
@@ -85,7 +92,6 @@ export default function FetchTodoComponent() {
         return todo;
       })
     );
-
     let currentTodo: Todo | undefined;
     data.map((todo) => {
       if (todo.documentId === id) {
@@ -115,7 +121,7 @@ export default function FetchTodoComponent() {
     <div>
       <h1>To-Do List</h1>
       <ul>
-        {data.map((todo, index) => (
+        {todos.map((todo, index) => (
           <li key={index}>
             <input
               type="checkbox"
