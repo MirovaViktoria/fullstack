@@ -372,6 +372,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiToDoItemToDoItem extends Struct.CollectionTypeSchema {
   collectionName: 'to_do_items';
   info: {
+    description: '';
     displayName: 'ToDoItem';
     pluralName: 'to-do-items';
     singularName: 'to-do-item';
@@ -386,6 +387,7 @@ export interface ApiToDoItemToDoItem extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    date: Schema.Attribute.DateTime & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
